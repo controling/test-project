@@ -1,7 +1,4 @@
 const getters = {
-  appNameWithVersion (state) {
-    return `${state.appName}v2.0`
-  }
+  sidebar: state => state.app.sidebar
 }
-
 export default getters

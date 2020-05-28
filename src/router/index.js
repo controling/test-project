@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './router' // 路由列表
-import { setTitle, setToken, getToken } from '@/lib/util'
-import store from '@/store'
+import { setTitle } from '@/lib/util'
 Vue.use(Router)
 
 // 创建路由实例
