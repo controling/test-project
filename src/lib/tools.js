@@ -5,6 +5,16 @@ export const doCustomTimes = (times, callback) => {
   }
 }
 
+export const parseQueryString = url => {
+  var json = {}
+  var arr = url.substr(url.indexOf('?') + 1).split('&')
+  arr.forEach(item => {
+    var tmp = item.split('=')
+    json[tmp[0]] = tmp[1]
+  })
+  return json
+}
+
 export const objEqual = (obj1, obj2) => {
   const keysArr1 = Object.keys(obj1)
   const keysArr2 = Object.keys(obj2)

@@ -1,16 +1,13 @@
 import Mock from 'mockjs'
-import { getUserInfo, login, authorization } from './response/user'
-import { getTableData, getFileList, getFolderList } from './response/data'
+import { getTableList, addTableItem, editTableItem, deleteTableItem } from './response/table'
 
-Mock.mock(/\/getUserInfo/, 'post', getUserInfo)
-Mock.mock(/\/login/, 'post', login)
-Mock.mock(/\/authorization/, 'get', authorization)
-Mock.mock(/\/getTableData/, 'get', getTableData)
-Mock.mock(/\/getFileList/, 'get', getFileList)
-Mock.mock(/\/getFolderList/, 'get', getFolderList)
+Mock.mock(/\/getTableList/, 'get', getTableList)
+Mock.mock(/\/addTableItem/, 'post', addTableItem)
+Mock.mock(/\/editTableItem/, 'post', editTableItem)
+Mock.mock(/\/deleteTableItem/, 'get', deleteTableItem)
 
 Mock.setup({
-  timeout: 0
+  timeout: 1000
 })
 
 export default Mock

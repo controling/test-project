@@ -6,11 +6,11 @@ class HttpRequest {
   // constructor (baseUrl) {
   //  baseUrl = baseUrl || baseURL
   // }
-  constructor (baseUrl = baseURL) {
+  constructor(baseUrl = baseURL) {
     this.baseUrl = baseUrl // this表示要创建的实例
     this.queue = {} // 请求队列
   }
-  getInsideConfig () {
+  getInsideConfig() {
     // 全局配置
     const config = {
       baseUrl: this.baseUrl,
@@ -20,7 +20,7 @@ class HttpRequest {
     }
     return config
   }
-  interceptors (instance, url) {
+  interceptors(instance, url) {
     // 请求拦截
     instance.interceptors.request.use(config => {
       // 可以添加请求前控制
@@ -48,7 +48,7 @@ class HttpRequest {
       return Promise.reject(error)
     })
   }
-  request (options) {
+  request(options) {
     // 创建请求
     const instance = axios.create() // 创建实例
     options = Object.assign(this.getInsideConfig(), options) // 合并请求配置
