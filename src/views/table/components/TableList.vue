@@ -35,7 +35,7 @@
         <el-button
           size="mini"
           type="text"
-          @click="handleAddOrEdit(scope.row)"
+          @click="handleEdit(scope.row)"
         >修改</el-button>
         <el-button
           size="mini"
@@ -58,6 +58,14 @@ export default {
   data() {
     return {
 
+    }
+  },
+  methods: {
+    handleEdit(data) {
+      this.$emit('handleEdit', data)
+    },
+    handleDelete(id) {
+      this.$emit('handleDelete', id)
     }
   }
 }

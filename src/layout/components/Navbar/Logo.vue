@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar-logo-container">
+  <div>
     <router-link key="expand" class="navbar-logo-link" to="/">
       <img :src="logo" class="navbar-logo">
       <h1 class="navbar-title">{{ title }} </h1>
@@ -18,35 +18,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.navbar-logo-container {
-  position: relative;
-  display: inline-block;
-  height: 60px;
-  line-height: 60px;
-  background: transparent;
-  text-align: left;
-  margin-left: 16px;
-  overflow: hidden;
-
-  & .navbar-logo-link {
-    height: 100%;
-    width: 100%;
-
-    & .navbar-logo {
-      width: 36px;
-      height: 36px;
-      vertical-align: middle;
-      margin-right: 16px;
-    }
-
-    & .navbar-title {
-      display: inline-block;
-      margin: 0;
-      font-size: 18px;
-      vertical-align: middle;
-    }
-  }
-}
-</style>

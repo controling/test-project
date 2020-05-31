@@ -10,66 +10,74 @@
     z-index: 1001;
     color: $navBarText;
     background: $navBarBg;
-  
-    .breadcrumb-container {
-      float: left;
-    }
-  
-    .errLog-container {
+
+    .navbar-logo-container {
+      position: relative;
       display: inline-block;
-      vertical-align: top;
+      height: $navBarHeight;
+      line-height: $navBarHeight;
+      background: transparent;
+      text-align: left;
+      margin-left: 16px;
+      overflow: hidden;
+
+      & .navbar-logo-link {
+        height: 100%;
+        width: 100%;
+
+        & .navbar-logo {
+          width: 36px;
+          height: 36px;
+          vertical-align: middle;
+          margin-right: 16px;
+        }
+
+        & .navbar-title {
+          display: inline-block;
+          margin: 0;
+          font-size: 18px;
+          vertical-align: middle;
+        }
+      }
     }
-  
+
     .right-menu {
       float: right;
       height: 100%;
-      line-height: 50px;
-  
+      line-height: $navBarHeight;
+
       &:focus {
         outline: none;
       }
-  
+
       .right-menu-item {
         display: inline-block;
-        padding: 0 8px;
         height: 100%;
-        font-size: 18px;
-        color: #5a5e66;
         vertical-align: text-bottom;
-  
-        &.hover-effect {
-          cursor: pointer;
-          transition: background .3s;
-  
-          &:hover {
-            background: rgba(0, 0, 0, .025)
-          }
-        }
       }
-  
+
       .avatar-container {
-        margin-right: 30px;
-  
+        margin-right: 16px;
+        color: #FFF;
+
         .avatar-wrapper {
-          margin-top: 5px;
-          position: relative;
-  
+          cursor: pointer;
           .user-avatar {
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            vertical-align: middle;
           }
-  
+          .user-name {
+            margin: 0 12px;
+            vertical-align: middle;
+          }
           .el-icon-caret-bottom {
-            cursor: pointer;
-            position: absolute;
-            right: -20px;
-            top: 25px;
             font-size: 12px;
+            vertical-align: middle;
           }
         }
       }
     }
-  }    
+  }
 }

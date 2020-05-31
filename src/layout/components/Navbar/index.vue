@@ -1,27 +1,20 @@
 <template>
   <div class="navbar-container">
-    <logo />
+    <logo class="navbar-logo-container" />
+    <right-menu class="right-menu" />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import Logo from './Logo'
+import RightMenu from './RightMenu'
 
 export default {
+  naem: 'Navbar',
   components: {
-    Logo
-  },
-  computed: {
-    ...mapGetters([
-      'sidebar'
-    ])
-  },
-  methods: {
-    async logout() {
-      await this.$store.dispatch('user/logout')
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
-    }
+    Logo,
+    RightMenu
   }
+
 }
 </script>

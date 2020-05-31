@@ -17,24 +17,37 @@ const template = {
 
 // 获取table数据
 export const getTableList = (options) => {
+  // 页码参数
   const params = parseQueryString(options.url)
   const currentPage = Number(params.currentPage)
   const pageSize = Number(params.pageSize)
 
+  // 创建多条数据
   if (tableData.length === 0) {
     doCustomTimes(90, () => {
       tableData.push(Mock.mock(template))
     })
   }
+  // 根据页码参数/筛选条件获取数据
+  let dataSource = tableData
+  const fileName = params.fileName && decodeURI(params.fileName)
+  if (fileName) {
+    dataSource = dataSource.filter(data => data.file_name.indexOf(fileName) > -1)
+  }
+  const createName = params.createName && decodeURI(params.createName)
+
+  if (createName) {
+    dataSource = dataSource.filter(data => data.create_name.indexOf(createName) > -1)
+  }
   const start = (currentPage - 1) * pageSize
   const end = start + pageSize
-  const filterTableData = tableData.slice(start, end)
+  const filterTableData = dataSource.slice(start, end)
 
   const res = {
     code: 200,
     pageInfo: {
       currentPage,
-      total: tableData.length
+      total: dataSource.length
     },
     data: filterTableData
   }
