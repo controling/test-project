@@ -1,7 +1,7 @@
 <template>
   <div class="table-container">
     <tree class="tree-wrapper" @handleTree="handleTreeData" />
-    <el-container class="table-wrapper">
+    <el-container v-loading="tableLoading" class="table-wrapper">
       <el-header height="auto">
         <div v-show="showSearch" class="search-wrapper">
           <el-form ref="searchForm" :inline="true" :model="searchForm" class="search-form">
@@ -21,7 +21,7 @@
           </el-form>
         </div>
         <div class="operate-wrapper">
-          <el-button size="medium" type="primary" plain @click="handleAddOrEdit()">新增数据</el-button>
+          <el-button size="medium" plain @click="handleAddOrEdit()">新增数据</el-button>
           <el-button size="medium" type="text" class="filter-btn" @click="showSearch = true">
             筛选条件
             <i class="el-icon-s-promotion el-icon--right" />
@@ -44,7 +44,7 @@
         />
       </el-footer>
     </el-container>
-    <add-or-edit :show="showForm" :title="formTitle" :form-data="formData" @closeForm="closeForm" @handleFormData="handleFormData" />
+    <add-or-edit :show="showForm" :title="formTitle" :form-data="formData" :saving="saving" @closeForm="closeForm" @handleFormData="handleFormData" />
   </div>
 </template>
 <script>
@@ -68,13 +68,15 @@ export default {
         fileName: '',
         createName: ''
       },
+      tableLoading: false,
       currentPage: 1,
       pageSize: 10,
       total: 0,
       tableData: [],
       showForm: false,
       formTitle: '',
-      formData: {}
+      formData: {},
+      saving: false
     }
   },
   computed: {
@@ -92,6 +94,7 @@ export default {
   methods: {
     // 获取列表数据
     getTableData() {
+      this.tableLoading = true
       const params = {
         currentPage: this.currentPage,
         pageSize: this.pageSize
@@ -109,6 +112,7 @@ export default {
         const { data, pageInfo: { total }} = res
         this.tableData = data
         this.total = total
+        this.tableLoading = false
       })
     },
     handleSizeChange(val) {
@@ -146,6 +150,7 @@ export default {
     },
     // 处理新增/修改表单提交的数据
     async handleFormData(data) {
+      this.saving = true
       let res = null
       if (Object.keys(this.formData).length) {
         // 调用修改接口
@@ -157,22 +162,32 @@ export default {
       if (res.code === 200) {
         this.$message({
           message: `${this.formTitle}成功`,
-          type: 'success'
+          type: 'success',
+          center: true
         })
         this.getTableData()
         this.showForm = false
+        this.saving = false
       }
     },
     // 删除
     handleDelete(id) {
-      deleteTableItem(id).then(res => {
-        if (res.code === 200) {
-          this.$message({
-            message: '删除成功',
-            type: 'success'
-          })
-          this.getTableData()
-        }
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.tableLoading = true
+        deleteTableItem(id).then(res => {
+          if (res.code === 200) {
+            this.$message({
+              message: '删除成功',
+              type: 'success',
+              center: true
+            })
+            this.getTableData()
+          }
+        })
       })
     }
   }
@@ -185,6 +200,7 @@ export default {
 .table-container{
   height: 100%;
   background: #FFF;
+  box-shadow: 0 0 5px 0px rgba(0, 21, 41, 0.08);
 
   .search-wrapper {
     position: relative;
@@ -200,7 +216,7 @@ export default {
         $direction: bottom,
         $position: top 100% right 42.5px,
         $color: #EBEEF5,
-        $size: 9px,
+        $size: 10px
       );
     }
 
@@ -209,7 +225,7 @@ export default {
         $direction: bottom,
         $position: top 100% right 44px,
         $color: #FAFAFB,
-        $size: 8px,
+        $size: 8px
       );
     }
 

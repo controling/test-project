@@ -6,7 +6,7 @@
     padding-top: $navBarHeight;
     margin-left: $sideBarWidth;
     background: #F4F7FA;
-    border-left: 1px solid #D8DCE6;
+    border-left: 1px solid #E0E0E0;
     transition: margin-left .28s;
   }
 
@@ -50,10 +50,6 @@
       overflow: hidden;
     }
 
-    i {
-      margin-right: 16px;
-    }
-
     .el-menu {
       border: none;
       height: 100%;
@@ -67,6 +63,11 @@
 
     .el-menu-item i {
       color: #333;
+      margin-right: 16px;
+    }
+
+    .el-menu-item span {
+      vertical-align: unset;
     }
 
     .el-menu-item.is-active i {

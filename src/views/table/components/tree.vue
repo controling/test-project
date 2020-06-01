@@ -2,6 +2,7 @@
   <div class="tree-inner">
     <el-input
       v-model="filterText"
+      clearable
       class="filter-input"
       size="medium"
       placeholder="请输入"
@@ -68,7 +69,7 @@ export default {
              label: '二级 3-1',
              id: '3-1',
              children: [{
-               label: '三级 3-1-1',
+               label: '三级 3-1-1三级 3-1-1三级 3-1-1三级 3-1-1',
                id: '3-1-1'
              }]
            }, {
@@ -119,8 +120,12 @@ export default {
     background: transparent;
 
     &.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
-      background-color: #1D8AFA;
       color: #FFF;
+      border-radius: 3px;
+      background-color: #1D8AFA;
+    }
+    .el-tree-node__label {
+      @include ellipsis;
     }
   }
 }

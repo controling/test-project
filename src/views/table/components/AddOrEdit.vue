@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-dialog :title="title" :visible="show" @opened="handleOpened" @close="handleClose">
-      <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="100px">
+    <el-dialog :title="title" :visible="show" custom-class="dialog-medium" @opened="handleOpened" @close="handleClose">
+      <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="100px" size="small" style="width: 94%">
         <el-form-item label="序号" prop="order">
           <el-input v-model="ruleForm.order" />
         </el-form-item>
@@ -19,8 +19,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="() => this.$emit('closeForm')">取消</el-button>
-        <el-button type="primary" @click="handleSubmit">确定</el-button>
+        <el-button size="medium" @click="() => this.$emit('closeForm')">取消</el-button>
+        <el-button size="medium" type="primary" :loading="saving" @click="handleSubmit">{{ saving ? '保存中' : '确定' }}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -30,6 +30,10 @@ export default {
   name: 'AddOrEdit',
   props: {
     show: {
+      type: Boolean,
+      required: true
+    },
+    saving: {
       type: Boolean,
       required: true
     },

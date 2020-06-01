@@ -21,6 +21,12 @@
   }
 }
 
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @mixin size($width, $height: $width) {
   width: $width;
   height: $height;
@@ -69,7 +75,7 @@
     content: '';
     z-index: 2;
     $perpendicular-borders: $size solid transparent;
-    
+
     @if $direction == top or $direction == bottom {
       border-left:   $perpendicular-borders;
       border-right:  $perpendicular-borders;
