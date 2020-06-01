@@ -8,7 +8,7 @@
 
 @mixin scrollBar {
   &::-webkit-scrollbar-track-piece {
-    background: #d3dce6;
+    background: #E4E7EE;
   }
 
   &::-webkit-scrollbar {
@@ -16,51 +16,68 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #99a9bf;
-    border-radius: 20px;
+    background: #C4CDD5;
+    border-radius: 3px;
   }
 }
 
-@mixin relative {
-  position: relative;
-  width: 100%;
-  height: 100%;
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
 }
 
-@mixin pct($pct) {
-  width: #{$pct};
-  position: relative;
-  margin: 0 auto;
-}
-
-@mixin triangle($width, $height, $color, $direction) {
-  $width: $width/2;
-  $color-border-style: $height solid $color;
-  $transparent-border-style: $width solid transparent;
-  height: 0;
-  width: 0;
-
-  @if $direction==up {
-    border-bottom: $color-border-style;
-    border-left: $transparent-border-style;
-    border-right: $transparent-border-style;
+@mixin _position($position, $args) {
+  @each $o in top right bottom left {
+    $i: index($args, $o);
+    @if $i
+    and $i + 1 <= length($args)
+    and type-of( nth($args, $i + 1) ) == number {
+      #{$o}: nth($args, $i + 1);
+    }
   }
+  position: $position;
+}
 
+@mixin absolute($args) {
+  @include _position(absolute, $args);
+}
+
+@mixin direction($direction, $size, $color) {
+  @if $direction==top {
+    border-bottom: $size * 1.5 solid $color;
+  }
+  @else if $direction==bottom {
+    border-top: $size * 1.5 solid $color;
+  }
   @else if $direction==right {
-    border-left: $color-border-style;
-    border-top: $transparent-border-style;
-    border-bottom: $transparent-border-style;
+    border-left: $size * 1.5 solid $color;
   }
-
-  @else if $direction==down {
-    border-top: $color-border-style;
-    border-left: $transparent-border-style;
-    border-right: $transparent-border-style;
-  }
-
   @else if $direction==left {
-    border-right: $color-border-style;
-    border-top: $transparent-border-style;
-    border-bottom: $transparent-border-style;
+    border-right: $size * 1.5 solid $color;
+  }
+}
+
+@mixin triangle($direction, $position, $color: currentColor, $size: 1em) {
+  @if not index(top right bottom left, $direction) {
+    @warn "Direction must be one of top, right, bottom or left.";
+  }
+
+  @else {
+    @include absolute($position);
+    @include size(0);
+    @include direction($direction, $size, $color);
+    content: '';
+    z-index: 2;
+    $perpendicular-borders: $size solid transparent;
+    
+    @if $direction == top or $direction == bottom {
+      border-left:   $perpendicular-borders;
+      border-right:  $perpendicular-borders;
+    }
+
+    @else if $direction == right or $direction == left {
+      border-bottom: $perpendicular-borders;
+      border-top:    $perpendicular-borders;
+    }
   }
 }

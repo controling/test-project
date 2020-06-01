@@ -2,7 +2,7 @@
   <el-table
     :data="tableData"
     style="width: 100%"
-    height="250"
+    :height="tableHeight"
   >
     <el-table-column
       prop="order"
@@ -53,11 +53,11 @@ export default {
     tableData: {
       type: Array,
       required: true
-    }
-  },
-  data() {
-    return {
-
+    },
+    tableHeight: {
+      type: String,
+      require: false,
+      default: '300px'
     }
   },
   methods: {

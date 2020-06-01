@@ -1,34 +1,37 @@
 <template>
   <div class="table-container">
-    <el-scrollbar wrap-class="tree-wrapper">
-      <tree />
-    </el-scrollbar>
+    <tree class="tree-wrapper" @handleTree="handleTreeData" />
     <el-container class="table-wrapper">
       <el-header height="auto">
-        <div class="search-wrapper">
+        <div v-show="showSearch" class="search-wrapper">
           <el-form ref="searchForm" :inline="true" :model="searchForm" class="search-form">
             <el-form-item label="目录名称" prop="fileName">
-              <el-input v-model="searchForm.fileName" placeholder="请输入" />
+              <el-input v-model="searchForm.fileName" size="small" placeholder="请输入" />
             </el-form-item>
             <el-form-item label="创建人" prop="createName">
-              <el-input v-model="searchForm.createName" placeholder="请输入" />
+              <el-input v-model="searchForm.createName" size="small" placeholder="请输入" />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="getTableData()">查询</el-button>
-              <el-button @click="handleReset">重置</el-button>
+              <el-button type="primary" size="small" @click="getTableData()">查询</el-button>
+              <el-button size="small" @click="handleReset">重置</el-button>
             </el-form-item>
+            <el-button size="medium" type="text" class="filter-close-btn" @click="showSearch = false">
+              收起
+            </el-button>
           </el-form>
-
         </div>
-        <el-button @click="handleAddOrEdit()">新增</el-button>
-        <el-button-group>
-          <el-button type="primary">筛选</el-button>
-        </el-button-group>
+        <div class="operate-wrapper">
+          <el-button size="medium" type="primary" plain @click="handleAddOrEdit()">新增数据</el-button>
+          <el-button size="medium" type="text" class="filter-btn" @click="showSearch = true">
+            筛选条件
+            <i class="el-icon-s-promotion el-icon--right" />
+          </el-button>
+        </div>
       </el-header>
       <el-main>
-        <table-list :table-data="tableData" @handleEdit="handleAddOrEdit" @handleDelete="handleDelete" />
+        <table-list :table-data="tableData" :table-height="tableHeight" @handleEdit="handleAddOrEdit" @handleDelete="handleDelete" />
       </el-main>
-      <el-footer>
+      <el-footer height="auto">
         <el-pagination
           background
           :current-page.sync="currentPage"
@@ -59,6 +62,8 @@ export default {
   },
   data() {
     return {
+      treeFilterData: '',
+      showSearch: false,
       searchForm: {
         fileName: '',
         createName: ''
@@ -70,6 +75,15 @@ export default {
       showForm: false,
       formTitle: '',
       formData: {}
+    }
+  },
+  computed: {
+    tableHeight() {
+      // 表格高度为 可视高度 - navbar - 面包屑 - padding - 新增/筛选按钮 - padding - 分页 - 筛选条件
+      if (this.showSearch) {
+        return 'calc(100vh - 60px - 50px - 40px - 36px - 40px - 68px - 78px)'
+      }
+      return 'calc(100vh - 60px - 50px - 40px - 36px - 40px - 68px)'
     }
   },
   mounted() {
@@ -89,11 +103,12 @@ export default {
           params[key] = value
         }
       }
+      // tree 筛选条件
+      params.treeFilterData = this.treeFilterData
       getTableList(params).then(res => {
-        const { data, pageInfo: { currentPage, total }} = res
+        const { data, pageInfo: { total }} = res
         this.tableData = data
         this.total = total
-        this.currentPage = currentPage
       })
     },
     handleSizeChange(val) {
@@ -102,6 +117,11 @@ export default {
     },
     handleCurrentChange(val) {
       this.currentPage = val
+      this.getTableData()
+    },
+    // 根据 tree 数据请求列表
+    handleTreeData(data) {
+      this.treeFilterData = data
       this.getTableData()
     },
     // 重置搜索框
@@ -159,23 +179,76 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import "~@/styles/mixin.scss";
+
 .table-container{
   height: 100%;
-  .el-scrollbar {
+  background: #FFF;
+
+  .search-wrapper {
+    position: relative;
+    min-height: 66px;
+    padding: 12px 24px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: 1px solid #EBEEF5;
+    background: #FAFAFB;
+
+     &::before {
+      @include triangle(
+        $direction: bottom,
+        $position: top 100% right 42.5px,
+        $color: #EBEEF5,
+        $size: 9px,
+      );
+    }
+
+    &::after {
+      @include triangle(
+        $direction: bottom,
+        $position: top 100% right 44px,
+        $color: #FAFAFB,
+        $size: 8px,
+      );
+    }
+
+    .el-form--inline .el-form-item {
+      margin-right: 16px;
+      margin-bottom: 0;
+    }
+
+    .filter-close-btn {
+      color: #515B66;
+      float: right;
+      margin-top: 4px;
+    }
+  }
+
+  .operate-wrapper {
+    @include clearfix;
+    height: 36px;
+    .filter-btn {
+      float: right;
+      color: #515B66;
+      padding: 0;
+      padding-top: 12px;
+    }
+  }
+
+  .tree-wrapper {
     display: inline-block;
     width: 220px;
     height: 100%;
+    padding: 20px 12px;
     background: #FBFCFE;
   }
-  .tree-wrapper {
-    padding: 24px 12px;
 
-    overflow-x: hidden !important;
-  }
   .table-wrapper {
+
     display: inline-block;
     width: calc(100% - 220px);
+    padding: 20px 13px;
     vertical-align: top;
   }
 }

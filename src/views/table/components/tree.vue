@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="tree-inner">
     <el-input
       v-model="filterText"
-      size="small"
+      class="filter-input"
+      size="medium"
       placeholder="请输入"
       prefix-icon="el-icon-search"
     />
@@ -93,7 +94,7 @@ export default {
   },
   methods: {
     handleNodeClick(data) {
-      console.log(data)
+      this.$emit('handleTree', data.id)
     },
     filterNode(value, data) {
       if (!value) return true
@@ -102,3 +103,25 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+@import "~@/styles/mixin.scss";
+
+.tree-inner{
+  .filter-input {
+    margin-bottom: 16px;
+  }
+
+  .filter-tree {
+    @include scrollBar;
+    overflow: auto;
+    height: calc(100% - 36px - 20px);
+    background: transparent;
+
+    &.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
+      background-color: #1D8AFA;
+      color: #FFF;
+    }
+  }
+}
+</style>

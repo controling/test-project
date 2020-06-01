@@ -28,8 +28,12 @@ export const getTableList = (options) => {
       tableData.push(Mock.mock(template))
     })
   }
-  // 根据页码参数/筛选条件获取数据
+  // 根据tree数据/页码参数/筛选条件获取数据
   let dataSource = tableData
+  if (params.treeFilterData && params.treeFilterData !== '0') {
+    const treeFilterData = params.treeFilterData.split('-')[0]
+    dataSource = dataSource.filter(data => data.sort % treeFilterData === 0)
+  }
   const fileName = params.fileName && decodeURI(params.fileName)
   if (fileName) {
     dataSource = dataSource.filter(data => data.file_name.indexOf(fileName) > -1)
