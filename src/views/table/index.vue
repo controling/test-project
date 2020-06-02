@@ -82,10 +82,11 @@ export default {
   computed: {
     tableHeight() {
       // 表格高度为 可视高度 - navbar - 面包屑 - padding - 新增/筛选按钮 - padding - 分页 - 筛选条件
+      // 100vh - 60px - 50px - 40px - 36px - 40px - 68px - 78px
       if (this.showSearch) {
-        return 'calc(100vh - 60px - 50px - 40px - 36px - 40px - 68px - 78px)'
+        return 'calc(100vh - 372px)'
       }
-      return 'calc(100vh - 60px - 50px - 40px - 36px - 40px - 68px)'
+      return 'calc(100vh - 294px)'
     }
   },
   mounted() {
@@ -214,7 +215,7 @@ export default {
      &::before {
       @include triangle(
         $direction: bottom,
-        $position: top 100% right 42.5px,
+        $position: top 100% right 42px,
         $color: #EBEEF5,
         $size: 10px
       );
@@ -261,7 +262,6 @@ export default {
   }
 
   .table-wrapper {
-
     display: inline-block;
     width: calc(100% - 220px);
     padding: 20px 13px;

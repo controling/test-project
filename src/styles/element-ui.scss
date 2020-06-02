@@ -72,7 +72,7 @@
 // dialog
 .dialog-medium{
   width: 700px;
-  max-height: 560px;
+  height: 560px;
   border-radius: 6px;
 }
 .el-dialog__header {
@@ -88,7 +88,7 @@
   @include scrollBar;
   padding: 0;
   margin: 16px;
-  max-height: 414px;
+  height: 414px;
   overflow: auto;
 }
 
