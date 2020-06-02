@@ -17,7 +17,7 @@ export default [
     path: '/organize',
     component: Layout,
     children: [{
-      path: 'organize',
+      path: 'index',
       name: 'Organize',
       component: Home,
       meta: { title: 'Organize', icon: 's-flag' }
@@ -27,7 +27,7 @@ export default [
     path: '/flow',
     component: Layout,
     children: [{
-      path: 'flow',
+      path: 'index',
       name: 'Flow',
       component: Home,
       meta: { title: 'Flow', icon: 's-marketing' }

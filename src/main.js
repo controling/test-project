@@ -4,7 +4,7 @@ import 'normalize.css/normalize.css'
 import router from './router'
 import store from './store'
 import './styles/element-variables.scss'
-import '@/styles/index.scss' // global css
+import '@/styles/index.scss'
 
 import {
   Pagination,
@@ -70,9 +70,7 @@ Vue.prototype.$prompt = MessageBox.prompt
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message
 
-if (process.env.NODE_ENV !== 'production') {
-  require('@/mock')
-}
+require('@/mock')
 
 Vue.config.productionTip = false
 

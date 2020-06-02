@@ -200,6 +200,7 @@ export default {
 
 .table-container{
   height: 100%;
+  font-size: 0;
   background: #FFF;
   box-shadow: 0 0 5px 0px rgba(0, 21, 41, 0.08);
 
