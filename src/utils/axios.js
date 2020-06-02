@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { baseURL } from '@/config'
-import { getToken } from '@/lib/util'
+import { getToken } from '@/utils/index'
 
 class HttpRequest {
   // constructor (baseUrl) {

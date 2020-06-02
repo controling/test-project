@@ -1,4 +1,3 @@
-import Table from '@/views/table'
 import Home from '@/views/Home.vue'
 import Layout from '@/layout'
 
@@ -10,7 +9,7 @@ export default [
     children: [{
       path: 'table',
       name: 'Table',
-      component: Table,
+      component: () => import('@/views/table'),
       meta: { title: 'Table', icon: 'menu' }
     }]
   },

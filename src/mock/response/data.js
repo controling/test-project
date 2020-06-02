@@ -1,4 +1,4 @@
-import { doCustomTimes } from '@/lib/tools'
+import { doCustomTimes } from '@/utils/index'
 import Mock from 'mockjs'
 // const Random = Mock.Random
 

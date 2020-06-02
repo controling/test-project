@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-import { doCustomTimes, parseQueryString } from '@/lib/tools'
+import { doCustomTimes, parseQueryString } from '@/utils/index'
 
 const Random = Mock.Random
 
