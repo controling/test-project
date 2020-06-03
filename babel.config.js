@@ -3,6 +3,7 @@ module.exports = {
     '@vue/app'
   ],
   plugins: [
+    'jsx-v-model',
     [
       'component',
       {

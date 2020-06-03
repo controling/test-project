@@ -19,7 +19,7 @@ export default [
     children: [{
       path: 'index',
       name: 'Organize',
-      component: Home,
+      component: () => import('@/views/organize'),
       meta: { title: 'Organize', icon: 's-flag' }
     }]
   },

@@ -105,7 +105,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "~@/styles/mixin.scss";
 
 .tree-inner{
@@ -119,12 +119,12 @@ export default {
     height: calc(100% - 36px - 20px);
     background: transparent;
 
-    &.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
+    /deep/ &.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
       color: #FFF;
       border-radius: 3px;
       background-color: #1D8AFA;
     }
-    .el-tree-node__label {
+    /deep/ .el-tree-node__label {
       @include ellipsis;
     }
   }

@@ -69,33 +69,53 @@
   }
 }
 
-// dialog
-.dialog-medium{
-  width: 700px;
-  height: 560px;
+@mixin dialogContent($width, $height) {
+  width: $width;
+  height: $height;
   border-radius: 6px;
-}
-.el-dialog__header {
-    padding: 12px 16px;
+  .el-dialog__header {
+    height: 50px;
+    padding: 14px 16px;
     border-bottom: 1px solid #E0E0E0;
+  }
+  
+  .el-dialog__headerbtn {
+    top: 16px;
+  }
+  
+  .el-dialog__body {
+    @include scrollBar;
+    padding: 0;
+    margin: 16px;
+    height: $height - 138px;
+    overflow: auto;
+  }
+  
+  .el-dialog__footer{
+    height: 36px;
+    padding: 0 16px;
+  }
 }
 
-.el-dialog__headerbtn {
-  top: 16px;
+// dialog
+.dialog-large{
+  @include dialogContent(780px, 600px)
 }
 
-.el-dialog__body {
-  @include scrollBar;
-  padding: 0;
-  margin: 16px;
-  height: 414px;
-  overflow: auto;
+
+.dialog-medium{
+  @include dialogContent(700px, 560px)
 }
 
-.el-dialog__footer{
-  padding: 16px;
-  padding-top: 0;
+// tree
+.el-tree-node__label {
+  @include ellipsis;
 }
+
+// tabs
+// .el-tabs__nav-wrap::after {
+//   height: 1px;
+// }
 
 // message
 // .el-message {
