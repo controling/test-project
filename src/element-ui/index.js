@@ -14,6 +14,8 @@ import {
   Tabs,
   TabPane,
   Radio,
+  Row,
+  Col,
   Table,
   TableColumn,
   Breadcrumb,
@@ -46,6 +48,8 @@ Vue.use(ButtonGroup)
 Vue.use(Tabs)
 Vue.use(TabPane)
 Vue.use(Radio)
+Vue.use(Row)
+Vue.use(Col)
 Vue.use(Table)
 Vue.use(TableColumn)
 Vue.use(Breadcrumb)

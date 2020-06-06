@@ -1,4 +1,3 @@
-import Home from '@/views/Home.vue'
 import Layout from '@/layout'
 
 export default [
@@ -29,7 +28,7 @@ export default [
     children: [{
       path: 'index',
       name: 'Flow',
-      component: Home,
+      component: () => import('@/views/flow'),
       meta: { title: 'Flow', icon: 's-marketing' }
     }]
   },
