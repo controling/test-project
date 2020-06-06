@@ -6,7 +6,7 @@
         <item-pannel id="itempannel" />
       </el-col>
       <el-col :span="22">
-        <div id="page" />
+        <div id="page" ref="page" />
       </el-col>
     </el-row>
   </div>
@@ -31,7 +31,11 @@ export default {
   watch: {
     // 数据回显
     data(obj) {
-      this.editor && this.editor.getCurrentPage().read(obj)
+      if (this.editor) {
+        const page = this.editor.getCurrentPage()
+        page.read(obj)
+        this.editor.executeCommand('zoomIn')
+      }
     }
   },
   mounted() {
@@ -68,10 +72,12 @@ export default {
         },
         noEndEdge: false
       })
+
       // 设置边
-      flow.getGraph().edge({
-        shape: 'flow-polyline'
-      })
+      // flow.getGraph().edge({
+      //   shape: 'flow-polyline'
+      // })
+
       // 元素面板栏
       const itempannel = new G6Editor.Itempannel({
         container: 'itempannel'
