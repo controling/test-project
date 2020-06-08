@@ -18,15 +18,15 @@ module.exports = {
       errors: true
     }
   },
-  configureWebpack: {
-    resolve: {
-      alias: {
-        '@': resolve('src')
-      }
-    }
-  },
   chainWebpack(config) {
-    // set preserveWhitespace
+    config.resolve.alias
+      .set('@', resolve('src'))
+
+    config
+      .when(process.env.NODE_ENV === 'development',
+        config => config.devtool('cheap-source-map')
+      )
+
     config.module
       .rule('vue')
       .use('vue-loader')
@@ -36,12 +36,6 @@ module.exports = {
         return options
       })
       .end()
-
-    config
-    // https://webpack.js.org/configuration/devtool/#development
-      .when(process.env.NODE_ENV === 'development',
-        config => config.devtool('cheap-source-map')
-      )
 
     config
       .when(process.env.NODE_ENV !== 'development',
@@ -67,6 +61,12 @@ module.exports = {
                   minChunks: 3, //  minimum common number
                   priority: 5,
                   reuseExistingChunk: true
+                },
+                styles: {
+                  name: 'styles',
+                  test: /\.(sa|sc|c)ss$/,
+                  chunks: 'all',
+                  enforce: true
                 }
               }
             })
